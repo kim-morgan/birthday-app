@@ -11,7 +11,6 @@ class Birthday
   end
 
   def valid?
-    
     if @day.class != Integer || @month.class != Integer
       return false
     elsif @month == 2 && @day > 29
@@ -23,7 +22,10 @@ class Birthday
     else
       return true
     end
+  end
 
+  def birthday?
+    @day == Time.now.day && @month == Time.now.month
   end
 
 end

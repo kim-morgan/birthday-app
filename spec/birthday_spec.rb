@@ -36,6 +36,17 @@ describe Birthday do
     expect(bad_birthday.valid?).to be false
   end
 
+  context "#check if today is birthday"
+
+  it "should be able to check if today is the user's birthday" do
+    today_birthday = Birthday.new(Time.now.day, Time.now.month)
+    expect(today_birthday.birthday?).to be true
+  end
+
+  it "should not return true if it is not the user's birthday" do
+    not_today_birthday = Birthday.new(Time.now.day + 1, Time.now.month + 2)
+    expect(not_today_birthday.birthday?).to be false
+  end
 
 
 end
