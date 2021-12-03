@@ -1,5 +1,6 @@
 require 'capybara/rspec'
 require_relative '../../app'
+require 'date'
 Capybara.app = BirthdayApp
 
 feature 'fill in name and birthday' do
@@ -45,6 +46,20 @@ feature "rejects invalid birthdays" do
   scenario 'should successfully get back to home page' do
     click_button('Back')
     expect(page).to have_content 'Hello there!'
+  end
+end
+
+feature "celebrates current birthdays" do
+  before(:each) do 
+    visit('/')
+    fill_in('name', with: 'Kim')
+    fill_in('day', with: 3)
+    select Date::MONTHNAMES[Time.now.month], from: 'month'
+    click_button('Submit')
+  end
+
+  scenario 'should celebrate user birthday' do
+    expect(page).to have_content "Happy Birthday, Kim!"
   end
 
 end

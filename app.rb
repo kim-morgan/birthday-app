@@ -15,14 +15,21 @@ class BirthdayApp < Sinatra::Base
   end
 
   post '/details' do
-    $birthday = Birthday.new(params[:day], params[:month])
+    $birthday = Birthday.new(params[:name], params[:day].to_i, params[:month].to_i)
     if $birthday.valid? == false
       redirect '/invalid'
+    elsif $birthday.birthday?
+      redirect '/birthday'
     end
   end
 
   get '/invalid' do
     erb(:invalid)
+  end
+  
+  get '/birthday' do
+    @name = $birthday.name
+    erb(:birthday)
   end
 
   run! if app_file == $0
