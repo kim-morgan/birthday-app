@@ -1,6 +1,8 @@
+require 'date'
+
 class Birthday
 
-  attr_reader :day, :month, :name
+  attr_reader :day, :month, :name, :year
 
   MONTHS_31_DAYS = [1,3,5,7,8,10,12]
   MONTHS_30_DAYS = [4,6,9,11]
@@ -29,7 +31,7 @@ class Birthday
     @day == Time.now.day && @month == Time.now.month
   end
 
-  def year?
+  def year
     if @month - Time.now.month > 0
       Time.now.year
     elsif @month - Time.now.month == 0 && @day >= Time.now.day
@@ -38,5 +40,10 @@ class Birthday
       Time.now.year + 1
     end
   end
+
+  def time_until_birthday
+    (Date.new(year, @month, @day) - Date.today).to_i
+  end
+
 
 end

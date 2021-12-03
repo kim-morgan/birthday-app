@@ -20,6 +20,8 @@ class BirthdayApp < Sinatra::Base
       redirect '/invalid'
     elsif $birthday.birthday?
       redirect '/birthday'
+    else
+      redirect '/time'
     end
   end
 
@@ -30,6 +32,11 @@ class BirthdayApp < Sinatra::Base
   get '/birthday' do
     @name = $birthday.name
     erb(:birthday)
+  end
+
+  get '/time' do
+    @time_until = $birthday.time_until_birthday
+    erb(:time)
   end
 
   run! if app_file == $0

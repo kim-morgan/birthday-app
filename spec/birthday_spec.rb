@@ -57,12 +57,17 @@ describe Birthday do
 
   it "should be able to check year of next birthday (this year)" do
     this_year_birthday = Birthday.new("Kim", Time.now.day + 1, Time.now.month)
-    expect(this_year_birthday.year?).to eq Time.now.year
+    expect(this_year_birthday.year).to eq Time.now.year
   end
 
   it "should be able to check year of next birthday (next year)" do
     next_year_birthday = Birthday.new("Kim", Time.now.day, Time.now.month - 1)
-    expect(next_year_birthday.year?).to eq Time.now.year + 1
+    expect(next_year_birthday.year).to eq Time.now.year + 1
+  end
+
+  it "should be able to check time between birthdays" do
+    birthday_in_2m = Birthday.new("Kim", 13, 5)
+    expect(birthday_in_2m.time_until_birthday).to eq 161
   end
 
 
